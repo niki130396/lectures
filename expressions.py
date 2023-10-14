@@ -65,3 +65,27 @@ For example, a bare function call is an expression that doesn’t require any op
 print(abs(-7))
 print(7 ** 2)
 print(pow(7, 2))
+print("Hello World")
+
+"""
+The assignment operator allows you to assign values to variables. 
+Strictly speaking, in Python, this operator makes variables or 
+names refer to specific objects in your computer’s memory. 
+In other words, an assignment creates a reference to a 
+concrete object and attaches that reference to the target variable.
+"""
+
+# For more on Python's assignment operator -
+# https://realpython.com/python-assignment-operator/
+
+
+"""
+Assignment statements not only assign a value to a variable but also determine the data type of the variable at hand. 
+This additional behavior is another important detail to consider in this kind of statement.
+
+Because Python is a dynamically typed language, 
+successive assignments to a given variable can change the variable’s data type. 
+Changing the data type of a variable during a program’s execution is considered bad practice and highly discouraged. 
+It can lead to subtle bugs that can be difficult to track down.
+"""
+
