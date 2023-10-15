@@ -20,3 +20,16 @@
 # 6. Write a statement to:
 # Create a variable x with the value 100
 # Increase the value of x fivefold using an augmented assignment operator
+
+
+# 7. Cast the string defined below into upper case.
+
+s = "this should be upper case"
+
+# 8. Make sure the below string starts with a capital letter.
+
+x = "this should start with a capital letter."
+
+# 9. Swap the cases of the letters of the string below - upper case letters become lower case and vice versa.
+
+z = "tHIS STRING NEEDS IT'S CASE SWAPPED."
