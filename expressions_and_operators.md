@@ -200,3 +200,170 @@ It can lead to subtle bugs that can be difficult to track down.**
 10 % 2 == 0 # True
 11 % 2 == 0 # False
 ```
+
+## Comparison Operators and Expressions in Python
+
+**The Python comparison operators allow you to compare numerical values \
+and any other objects that support them. \
+The comparison operators are all binary. \
+This means that they require left and right operands. \
+These operators always return a Boolean value (True or False) \
+that depends on the truth value of the comparison at hand.**
+
+
+> **_NOTE:_** Comparisons between objects of different data types often don’t make sense \
+> and sometimes aren’t allowed in Python.
+
+```python
+2 == "2"
+```
+
+```python
+5 < "7"
+```
+
+### Comparing Integer Values
+
+```python
+a = 10
+b = 20
+a == b
+a != b
+a < b
+a <= b
+a >= b
+```
+
+### Comparing Floating-Point Values
+
+```python
+x = 1.1 + 2.2
+x == 3.3 # False
+```
+
+> **_NOTE:_** The value stored in a float object may not be precisely what you’d think it would be. \
+> For that reason, it’s bad practice to compare floating-point values for exact equality using the == operator.
+
+**The preferred way to determine whether two floating-point values are equal \
+is to determine whether they’re close to one another, given some tolerance.**
+
+```python
+from math import isclose
+
+x = 1.1 + 3.3
+isclose(x, 3.3) # True
+```
+
+### Comparing Strings
+
+> **_NOTE:_** Python compares strings character by character using each character’s Unicode code point.
+
+```python
+"A" == "a"
+"A" > "a"
+"A" < "a"
+ ```
+
+> **_NOTE:_** The comparison of strings with multiple characters uses lexicographical ordering, \
+> which means that Python compares the first item from each string. \
+> If their Unicode code points are different, this difference determines the comparison result. \
+> If the Unicode code points are equal, then Python compares the next two characters, \
+> and so on, until either string is exhausted
+
+```python
+"Hello" > "HellO" # True
+```
+
+
+## Boolean Operators and Expressions in Python
+
+```python
+age = 20
+is_adult = age > 18
+type(is_adult)
+```
+
+**Here are a few examples of using the and operator with Boolean operands:**
+
+```python
+5 < 7 and 3 == 3 # True
+5 < 7 and 3 != 3 # False
+5 > 7 and 3 == 3 # False
+```
+
+> **_NOTE:_** In the third example, the left-hand operand is False. \
+> In this case, the and operator immediately returns False and never evaluates the 3 == 3 condition. \
+> This behavior is called short-circuit evaluation.
+
+### Idioms That Exploit Short-Circuit Evaluation
+
+- Avoiding an exception
+- Providing a default value
+- Skipping a costly operation
+
+```python
+a = 3
+b = 1
+(b / a) > 0
+```
+
+**This code works. However, you need to account for the possibility that a might be 0, \
+in which case you’ll get an exception:**
+
+```python
+a = 0
+b = 1
+(b / a) > 0
+```
+
+**You can skip this error with an expression like the following:**
+
+```python
+a = 0
+b = 1
+a != 0 and (b / a) > 0
+```
+
+**Selecting a default value when a specified value is falsy is another idiom \
+that takes advantage of the short-circuit evaluation feature of Python’s logical operators.**
+
+```python
+country = "Canada"
+default_country = "United States"
+
+country or default_country # Canada
+
+country = ""
+country or default_country # United States
+```
+
+### Compound vs Chained Expressions
+
+```python
+number = 5
+number >= 0 and number <= 10
+```
+
+```python
+number = 5
+0 <= number <= 10
+```
+
+## Identity Operators and Expressions in Python
+
+```python
+x = 1001
+y = 1001
+
+x == y # True
+x is y # False
+```
+
+## Membership Operators and Expressions in Python
+
+```python
+5 in [2, 3, 5, 9, 7]
+
+'a' in 'some string'
+```
+
