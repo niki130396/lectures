@@ -293,13 +293,6 @@ else:
 # This prints False
 ```
 
-**Now let's imagine that we were able to alter the state of `a` and change the name\
-like so:**
-
-```python
-a[0] = "B"
-```
-
 **This would result in `a` becoming Bill Smith and `b` would now have a different value \
 as well, because it points to `a`, and everything that points to `a` will be altered too. \
 This is one of the reasons behind this design choice**
