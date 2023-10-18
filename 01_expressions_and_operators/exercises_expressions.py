@@ -24,7 +24,7 @@ print(f"#3.2: {a//b}")  # used for floor division
 # 4. Consider the following statements:
 x = 10.0
 y = (x < 100.0) and isinstance(x, float)
-# What is the value of y?
+# What is the value of y? -> True
 
 if y == (x < 100.0) and isinstance(x, float):
     print(f"#4: {y}")
