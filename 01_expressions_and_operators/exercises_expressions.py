@@ -2,12 +2,25 @@
 
 # 1. Create a new variable (using the assignment operator).
 
+new_string = "test"
+
+new_float = 5.2
 
 # 2. Create a statement using the following expression: a + 5 - b (you need to define a and b).
 
+a = 32
+b = 8
+
+print(f"#2: {a + 5 - b}")
 
 # 3. What is the difference between the `/` operator and the `//` operator?
 
+a = 15
+b = 6
+
+print(f"#3.1: {b/a}")  # used for integer division
+
+print(f"#3.2: {a//b}")  # used for floor division
 
 # 4. Consider the following statements:
 # x = 10.0
