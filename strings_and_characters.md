@@ -224,6 +224,15 @@ s[0:6:2]
 s[1:6:2]
 ```
 
+> **_NOTE:_** Reversing a string can be done like so:
+```python
+a = "abcdefg"
+reversed_a = a[::-1]
+```
+> This essentially means take a slice of the string from the start to the end with \
+> a reverse step of 1
+
+
 ## Interpolating Variables Into a String
 
 **In Python version 3.6, a new string formatting mechanism was introduced. \
@@ -254,6 +263,47 @@ s = 'foobar'
 s[3] = 'x'
 ```
 
+**But why are strings immutable? \
+String immutability is a design choice taken by the Python \
+language developers, so that we don't end up altering a value by mistake. \
+Altering a value by mistake might lead to some serious bugs along the way \
+Take the following piece of code as an example:**
+
+[Why are strings immutable?](https://stackoverflow.com/questions/8680080/why-are-python-strings-immutable-best-practices-for-using-them)
+
+```python
+a = "Will Smith"
+
+b = a
+
+if b == "Will Smith":
+    print(True)
+else:
+    print(False)
+
+# This prints True
+    
+a[0] = "B"
+
+if b == "Will Smith":
+    print(True)
+else:
+    print(False)
+
+# This prints False
+```
+
+**Now let's imagine that we were able to alter the state of `a` and change the name\
+like so:**
+
+```python
+a[0] = "B"
+```
+
+**This would result in `a` becoming Bill Smith and `b` would now have a different value \
+as well, because it points to `a`, and everything that points to `a` will be altered too. \
+This is one of the reasons behind this design choice**
+
 **In truth, there really isn’t much need to modify strings. \
 You can usually easily accomplish what you want by generating a copy of the original \
 string that has the desired change in place. \
@@ -269,24 +319,218 @@ s = 'foobar'
 s = s.replace('b', 'x')
 ```
 
+**Copying the string creates a new object, which means the variable `s` \
+now points to a different block of memory where the copied value is stored**
+
+```python
+s = "foobar"
+print(id(s))
+s = s[:1] + s[1:]
+print(id(s))
+```
+
 ## Built-in String Methods
 
+**You might be familiar with functions - they are callable procedures that you can invoke \
+to perform specific tasks.**
+
+**Methods are similar to functions. \
+A method is a specialized type of callable procedure that is tightly associated with an object. \
+Like a function, a method is called to perform a distinct task, \
+but it is invoked on a specific object and has knowledge of its target object during execution.**
+
 - `s.capitalize()`
+
+**`s.capitalize()` returns a copy of s with the first character converted to uppercase \
+and all other characters converted to lowercase**
+
+```python
+s = "foO BaR"
+s = s.capitalize()
+print(s)
+```
+
 - `s.lower()`
+
+**`s.lower()` returns a copy of s with all alphabetic characters converted to lowercase:**
+
+```python
+s = "foO BaR"
+s = s.lower()
+print(s)
+```
+
 - `s.swapcase()`
+
+**`s.swapcase()` returns a copy of s with uppercase alphabetic characters converted to lowercase and vice versa:**
+
+```python
+s = "foO BaR"
+s = s.swapcase()
+print(s)
+```
+
 - `s.title()`
+
+**`s.title()` returns a copy of s in which the first letter of each word is converted to uppercase \
+and remaining letters are lowercase:**
+
+```python
+s = "foO BaR"
+s = s.title()
+print(s)
+```
+
 - `s.upper()`
+
+**`s.upper()` returns a copy of s with all alphabetic characters converted to uppercase:**
+
+```python
+s = "foO BaR"
+s = s.upper()
+print(s)
+```
+
 - `s.count(<sub>[, <start>[, <end>]])`
+
+**`s.count(<sub>)` returns the number of non-overlapping occurrences of substring <sub> in s:**
+
+```python
+s = 'foo goo moo'
+print(s.count('oo'))
+```
+
+**We can also search within a given substring:**
+
+```python
+s = 'foo goo moo'
+print(s.count('oo', 1, 3))
+```
+
+> **_NOTE:_** This searches only within the index range 1 to 3 (NON-INCLUSIVE)
+
 - `s.endswith(<suffix>[, <start>[, <end>]])`
+
+**`s.endswith(<suffix>)` returns True if s ends with the specified <suffix> and False otherwise:**
+
+```python
+s = 'foobar'
+print(s.endswith('bar'))
+```
+
 - `s.find(<sub>[, <start>[, <end>]])`
+
+**You can use `s.find()` to see if a Python string contains a particular substring. \
+`s.find(<sub>)` returns the lowest index in `s` where substring <sub> is found:**
+
+```python
+s = 'foo bar foo baz foo qux'
+print(s.find('foo'))
+```
+
+> **_NOTE:_** Returns `-1` if substring is not found
+
 - `s.index(<sub>[, <start>[, <end>]])`
+
+**This method is identical to `s.find()`, \
+except that it raises an exception if <sub> is not found rather than returning `-1`:**
+
+**You can use this method for dynamic slicing:**
+
+**Let's say that we have the following string `s = 'foo bar foo baz foo qux'`\
+and we want to get a slice from the first occurrence of `foo` to the last occurrence:**
+
+```python
+s = 'foo bar foo baz foo qux'
+s_slice = s[s.index("foo"):s.rindex("foo") + 3]
+print(s_slice)
+```
+
+**What if we wanted to get a slice from the beginning to the last occurrence of `foo`?**
+
+```python
+s = 'aaa bbbb foo bar foo baz foo qux'
+s_slice = s[:s.rindex("foo") + 3]
+print(s_slice)
+```
+
 - `s.rfind(<sub>[, <start>[, <end>]])`
+
+**`s.rfind(<sub>)` returns the highest index in s where substring <sub> is found:**
+
+```python
+s = 'foo bar foo baz foo qux'
+print(s.rfind('foo'))
+```
+
+> **_NOTE:_** It's also worth noting that it might be beneficial to use `s.rfind()` in cases when you know \
+> the substring exists only once and is closer to the last index than the first.
+
+**Let's say we have the following string `s = 'aaa bbb ccc foo ddd'` and we want to find the index of substring `foo`. \
+We can achieve that with using `s.find()` and `s.rfind()`. The difference is we know `s.rfind()` is going to \
+find the substring faster because we have a guarantee that the substring will be closer to the last index than the \
+first. The other case is when we know the substring is closer to the beginning - that's when we will benefit \
+from using `s.find()`**
+
+
 - `s.rindex(<sub>[, <start>[, <end>]])`
+
+**This method is identical to `s.rfind()`, except that it raises an exception if <sub> is not found \
+rather than returning -1:**
+
+```python
+s = 'foo bar foo baz foo qux'
+print(s.rindex('coo'))
+```
+
 - `s.startswith(<prefix>[, <start>[, <end>]])`
+
+**When you use the Python `s.startswith()` method, \
+`s.startswith(<suffix>)` returns `True` if `s` starts with the specified <suffix> and `False` otherwise:**
+
+```python
+s = 'foobar'
+print(s.startswith('foo'))
+print(s.startswith('bar'))
+```
+
 - `s.isalnum()`
+
+**`s.isalnum()` returns `True` if `s` is nonempty and all its characters are alphanumeric (either a letter or a number), \
+and False otherwise:**
+
+```python
+s = 'abc123'
+print(s.isalnum())
+```
+
 - `s.isalpha()`
+
+**`s.isalpha()` returns `True` if `s` is nonempty and all its characters are alphabetic, and `False` otherwise:**
+
+```python
+s = 'abc123'
+print(s.isalnum())
+s = 'abcDEF'
+print(s.isalpha())
+```
+
 - `s.isdigit()`
+
+**You can use the `s.isdigit()` Python method to check if your string is made of only digits. \
+`s.isdigit()` returns `True` if `s` is nonempty and all its characters are numeric digits, and `False` otherwise:**
+
+```python
+s = '12343'
+print(s.isdigit())
+s = '213asd'
+print(s.isdigit())
+```
+
 - `s.islower()`
+
+
+
 - `s.isspace()`
 - `s.istitle()`
 - `s.isupper()`
