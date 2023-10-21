@@ -97,14 +97,14 @@ The array stores pointers adjacently. But the values they refer to can be stored
 **To make the long story short: \
 A list is a data structure that internally uses an array \
 which has pointers (memory addresses) to the actual values you've defined, and the values \
-themselves are stored at some random location in memory. This is the reason why we have \
+themselves are stored at some random location in memory. This is the reason we have \
 constant element access time, while being able to include values of different types.**
 
 
 ## What operations work fast with lists?
 
 > **_NOTE:_** Lists perform best for the following operations: \
-> selecting a item by index - `lst[index]` \
+> selecting an item by index - `lst[index]` \
 > counting items - `len(lst)` \
 > add an item to the end of the list - `lst.append(item)` \
 > remove an item from the end of the list - `lst.pop()`
