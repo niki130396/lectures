@@ -1,5 +1,3 @@
-# lectures
-
 
 def numbers_sum_up_to_target(l: list, target: int):
     i, j = 0, len(l) - 1
